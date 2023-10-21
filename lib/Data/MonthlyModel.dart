@@ -15,7 +15,8 @@ class MonthlyAdjusted {
 
   factory MonthlyAdjusted.fromMap(Map<String, dynamic> json) => MonthlyAdjusted(
     metaData: MetaData.fromMap(json["Meta Data"]),
-    monthlyAdjustedTimeSeries: Map.from(json["Monthly Adjusted Time Series"]).map((k, v) => MapEntry<String, MonthlyAdjustedTimeSery>(k, MonthlyAdjustedTimeSery.fromMap(v))),
+    monthlyAdjustedTimeSeries: Map.from(json["Monthly Adjusted Time Series"]).map((k, v)
+    => MapEntry<String, MonthlyAdjustedTimeSery>(k, MonthlyAdjustedTimeSery.fromMap(v))),
   );
 
   Map<String, dynamic> toMap() => {
