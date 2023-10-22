@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'utils/Routes.dart';
+import 'package:flutter/services.dart';
 import 'package:stock_app/Pages/HttpPage.dart';
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   runApp(const MyApp());
 }
 

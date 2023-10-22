@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:stock_app/Data/Model.dart';
 import 'package:stock_app/utils/Routes.dart';
-
+import 'package:sensors/sensors.dart';
 class HttpPage extends StatefulWidget {
   const HttpPage({super.key});
 
@@ -13,6 +13,7 @@ class HttpPage extends StatefulWidget {
 }
 
 class _HttpPageState extends State<HttpPage> {
+  double scrollPosition = 0.0;
    List<dynamic> symbol=[];
    List<dynamic> identifier=[];
    List<dynamic> open=[];
@@ -34,7 +35,17 @@ class _HttpPageState extends State<HttpPage> {
    void initState(){
     super.initState();
     getHttpRequest();
-  }
+    accelerometerEvents.listen((AccelerometerEvent event) {
+    double sensitivity = 2.0;
+    scrollPosition += event.y * sensitivity;
+      if (scrollPosition < 0) {
+        scrollPosition = 0;
+      } else if (scrollPosition > 1.0) {
+        scrollPosition = 1.0;
+      }
+      setState((){});
+    });
+   }
 
   List<Stock>? stockData;
 
@@ -78,6 +89,11 @@ class _HttpPageState extends State<HttpPage> {
     }
 
   }
+  void dispose() {
+    super.dispose();
+    accelerometerEvents.drain();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,39 +104,42 @@ class _HttpPageState extends State<HttpPage> {
       ),
       ),
       body:
+       Container(
+         child: ListView.builder(
+                  itemCount:symbol.length,
+                  itemBuilder: (context,index){
+                return ListTile(
+                  subtitle: Column(children: [
+                    Text('  '),
+                    Text(symbol[index]),
+                    Text('  '),
+                    Text(identifier[index].toString()),
+                    Text(open[index].toString()),
+                    Text(dayHigh[index].toString()),
+                    Text(dayLow[index].toString()),
+                    Text(lastPrice[index].toString()),
+                    Text(previousClose[index].toString()),
+                    Text(change[index].toString()),
+                    Text(pchange[index].toString()),
+                    Text(totalTradedVolume[index].toString()),
+                    Text(totalTradedValue[index].toString()),
+                    Text(lastUpdateTime[index].toString()),
+                    Text(yearHigh[index].toString()),
+                    Text(yearLow[index].toString()),
+                    Text(perChange365d[index].toString()),
+                    Text(perChange30d[index].toString()),
 
-          ListView.builder(
-              itemCount:symbol.length,
-              itemBuilder: (context,index){
-            return ListTile(
-              subtitle: Column(children: [
-                Text('  '),
-                Text(symbol[index]),
-                Text('  '),
-                Text(identifier[index].toString()),
-                Text(open[index].toString()),
-                Text(dayHigh[index].toString()),
-                Text(dayLow[index].toString()),
-                Text(lastPrice[index].toString()),
-                Text(previousClose[index].toString()),
-                Text(change[index].toString()),
-                Text(pchange[index].toString()),
-                Text(totalTradedVolume[index].toString()),
-                Text(totalTradedValue[index].toString()),
-                Text(lastUpdateTime[index].toString()),
-                Text(yearHigh[index].toString()),
-                Text(yearLow[index].toString()),
-                Text(perChange365d[index].toString()),
-                Text(perChange30d[index].toString()),
+                    // Text(monthYear[index],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25)),
+                    // Text('  '),
+                    // Text('Volume : '+vol[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
+                  ],
+                  ),
 
-                // Text(monthYear[index],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25)),
-                // Text('  '),
-                // Text('Volume : '+vol[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-              ],
-              ),
-
-            );
-          }),
+                );
+              },
+          controller: ScrollController(initialScrollOffset: scrollPosition),
+      ),
+       ),
 
       //
       // body: Text(data.length.toString()),
