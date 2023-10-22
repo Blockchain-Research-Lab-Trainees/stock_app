@@ -43,7 +43,7 @@ class _HttpPageState extends State<HttpPage> {
       } else if (scrollPosition > 1.0) {
         scrollPosition = 1.0;
       }
-      setState((){});
+      // setState((){});
     });
    }
 
@@ -111,23 +111,24 @@ class _HttpPageState extends State<HttpPage> {
                 return ListTile(
                   subtitle: Column(children: [
                     Text('  '),
-                    Text(symbol[index]),
                     Text('  '),
-                    Text(identifier[index].toString()),
-                    Text(open[index].toString()),
-                    Text(dayHigh[index].toString()),
-                    Text(dayLow[index].toString()),
-                    Text(lastPrice[index].toString()),
-                    Text(previousClose[index].toString()),
-                    Text(change[index].toString()),
-                    Text(pchange[index].toString()),
-                    Text(totalTradedVolume[index].toString()),
-                    Text(totalTradedValue[index].toString()),
-                    Text(lastUpdateTime[index].toString()),
-                    Text(yearHigh[index].toString()),
-                    Text(yearLow[index].toString()),
-                    Text(perChange365d[index].toString()),
-                    Text(perChange30d[index].toString()),
+                    Text(symbol[index],style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
+                    Text('  '),
+                    // Text(identifier[index].toString()),
+                    Text("Open with Price: "+open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+                    Text("Day High Price: "+dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    Text("Day Low Price: "+dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    // Text(lastPrice[index].toString()),
+                    // Text(previousClose[index].toString()),
+                    // Text(change[index].toString()),
+                    // Text(pchange[index].toString()),
+                    Text("Total Traded Volume: "+totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    Text("Total Traded Value: "+totalTradedValue[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    Text("Last Update: "+lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    Text("Year High Price: "+yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    // Text(yearLow[index].toString()),
+                    // Text(perChange365d[index].toString()),
+                    // Text(perChange30d[index].toString()),
 
                     // Text(monthYear[index],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25)),
                     // Text('  '),
