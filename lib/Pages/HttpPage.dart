@@ -13,28 +13,32 @@ class HttpPage extends StatefulWidget {
 }
 
 class _HttpPageState extends State<HttpPage> {
-   List<dynamic> high=[];
+   List<dynamic> symbol=[];
+   List<dynamic> identifier=[];
    List<dynamic> open=[];
-   List<dynamic> low=[];
-   List<dynamic> close=[];
-   List<dynamic> vol=[];
-   List<dynamic> aclose=[];
-   List<dynamic> amount=[];
-    List<dynamic> monthYear=[];
+   List<dynamic> dayHigh=[];
+   List<dynamic> dayLow=[];
+   List<dynamic> lastPrice=[];
+   List<dynamic> previousClose=[];
+   List<dynamic> change=[];
+   List<dynamic> pchange=[];
+   List<dynamic> totalTradedVolume=[];
+   List<dynamic> totalTradedValue=[];
+   List<dynamic> lastUpdateTime=[];
+   List<dynamic> yearHigh=[];
+   List<dynamic> yearLow=[];
+   List<dynamic> perChange365d=[];
+   List<dynamic> perChange30d=[];
+
 
    void initState(){
     super.initState();
-    getHttpRequest("TSCO.LON");
+    getHttpRequest();
   }
-  String info="";
-   String symbol='';
-   String timezone='';
-  String apiKey ="demo";
-  String month='';
-  var re;
+
   List<Stock>? stockData;
-  Stock? stockD;
-  Future <void> getHttpRequest(String symbolName)async{
+
+  Future <void> getHttpRequest()async{
     final String apiKey ="1e71ef091fmsh9f841ffb3c10310p19c60fjsna11ad101e2b5";
     final String endpoint ="https://latest-stock-price.p.rapidapi.com/price?Indices=NIFTY%20200";
     final String apihost ="latest-stock-price.p.rapidapi.com";
@@ -43,32 +47,32 @@ class _HttpPageState extends State<HttpPage> {
       'RapidApi-key':apiKey,
       'RapidApi-Host':apihost,
     });
-    // String url ="https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol="+symbolName+"&apikey="+apiKey;
-    // var response = await http.get(Uri.parse(url));
-    // print(response.body);
     if(response.statusCode==200){
-    // stockData=monthlyAdjustedFromMap(response.body);
       stockData=stockFromMap(response.body);
-      // stockD=stockData as Stock?;
       print(stockData![5].symbol.toString());
-
-    // stockData!.monthlyAdjustedTimeSeries.forEach((key, value) {
-      setState(() {
-        // monthYear.add(key);
-        // info=stockData!.metaData.the1Information;
-        // symbol=stockData!.metaData.the2Symbol;
-        // timezone=stockData!.metaData.the4TimeZone;
-        // high.add(value.the2High);
-        // open.add(value.the1Open);
-        // low.add(value.the3Low);
-        // aclose.add(value.the5AdjustedClose);
-        // amount.add(value.the7DividendAmount);
-        // vol.add(value.the6Volume);
-        // close.add(value.the4Close);
+      // if(stockData!.contains(symbol.compareTo("HDFCBANK"))){
+      //
+      // }
+      stockData!.forEach((element) {
+        setState(() {
+          symbol.add(element.symbol.toString());
+          identifier.add(element.identifier.toString());
+          open.add(element.open.toString());
+          dayHigh.add(element.dayHigh.toString());
+          dayLow.add(element.dayLow.toString());
+          lastPrice.add(element.lastPrice.toString());
+          previousClose.add(element.previousClose.toString());
+          change.add(element.change.toString());
+          pchange.add(element.pChange.toString());
+          totalTradedVolume.add(element.totalTradedVolume.toString());
+          totalTradedValue.add(element.totalTradedValue.toString());
+          lastUpdateTime.add(element.lastUpdateTime.toString());
+          yearHigh.add(element.yearHigh.toString());
+          yearLow.add(element.yearLow.toString());
+          perChange365d.add(element.perChange365D.toString());
+          perChange30d.add(element.perChange30D.toString());
+        });
       });
-    // });
-    // print(data);
-    // // print(monthlyAdjustedFromMap(response.body));
     }else{
       print('error');
     }
@@ -79,30 +83,38 @@ class _HttpPageState extends State<HttpPage> {
     return Scaffold(
       appBar: AppBar(title: Center(
         child: Column(children: [
-          // Text(info),
-          // Text(symbol),
-          // Text(timezone),
+          Text("Stocks"),
         ],),
       ),
       ),
       body:
 
           ListView.builder(
-              // itemCount:open.length,
+              itemCount:symbol.length,
               itemBuilder: (context,index){
             return ListTile(
               subtitle: Column(children: [
-                // Text(stockData!.monthlyAdjustedTimeSeries.cast().toString()),
                 Text('  '),
+                Text(symbol[index]),
                 Text('  '),
+                Text(identifier[index].toString()),
+                Text(open[index].toString()),
+                Text(dayHigh[index].toString()),
+                Text(dayLow[index].toString()),
+                Text(lastPrice[index].toString()),
+                Text(previousClose[index].toString()),
+                Text(change[index].toString()),
+                Text(pchange[index].toString()),
+                Text(totalTradedVolume[index].toString()),
+                Text(totalTradedValue[index].toString()),
+                Text(lastUpdateTime[index].toString()),
+                Text(yearHigh[index].toString()),
+                Text(yearLow[index].toString()),
+                Text(perChange365d[index].toString()),
+                Text(perChange30d[index].toString()),
+
                 // Text(monthYear[index],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25)),
                 // Text('  '),
-                // Text('Open : '+open[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                // Text('High : '+high[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                // Text('Low : '+low[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                // Text('Close : '+close[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                // Text('Adjusted Close : '+aclose[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                // Text('Amount : '+amount[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
                 // Text('Volume : '+vol[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
               ],
               ),
@@ -114,26 +126,4 @@ class _HttpPageState extends State<HttpPage> {
       // body: Text(data.length.toString()),
     );
   }
-  // LineChartData sampleData2(){
-  //   return LineChartData(
-  //     lineTouchData: LineTouchData(
-  //       enabled: false,
-  //     ),
-  //     gridData: FlGridData(
-  //       show: false,
-  //     ),
-  //     titlesData: FlTitlesData(
-  //       bottomTitles:AxisTitles(sideTitles:
-  //       SideTitles(
-  //         showTitles: true,
-  //         reservedSize: 22,
-  //         textStyle: const TextStyle(
-  //           color: Colors.red,
-  //           fontWeight: FontWeight.bold,
-  //           fontSize: 16,
-  //         ),
-  //       ),
-  //     )
-  //   );
-  // }
 }
