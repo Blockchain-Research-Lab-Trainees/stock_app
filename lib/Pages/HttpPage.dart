@@ -72,58 +72,105 @@ class _HttpPageState extends State<HttpPage> {
     }else{
       print('error');
     }
-
   }
+  static String toPass='';
   void dispose() {
     super.dispose();
     accelerometerEvents.drain();
   }
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.deepPurple,
-        title: Center(
-        child: Column(children: [
-          TextButton(onPressed: (){
-            if(L.symbol!=null){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailStock(sym: "UBL")));
-              // DetailStock(sym: L.symbol[1].toString());
-            }
-          }, child:Text('try',style: TextStyle(color: Colors.white),) ),
-          Text("Stocks"),
-        ],),
-      ),
+      appBar: AppBar(
+        backgroundColor: Colors.blue[800],
+        title: Text("STOCKS LIST",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
       ),
       body:
            Container(
-             color: Colors.red.shade800,
-             child: ListView.builder(
-                      itemCount:L.symbol.length,
-                      itemBuilder: (context,index){
-                    return ListTile(
-                      subtitle: Container(
-                        color: index%2==0?Colors.redAccent:Colors.red,
-                        child: Column(children: [
-                          Text('  '),
-                          Text(L.symbol[index],style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
-                          Text('  '),
-                          Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                          Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                          Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                          Text("Total Traded Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                          Text("Total Traded Value: "+L.totalTradedValue[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                          Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                          Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                          Text('  '),
-                          ],
-                        ),
-                      ),
+             color: Colors.blue[500],
+             child: Column(
+               children: [Center(
+                 child: Padding(
+                   padding: const EdgeInsets.fromLTRB(10,20,10,0),
+                   child: Form(
+                     key: _formKey,
+                     child:
+                       // / Row(
+                       // children: [
+                         TextFormField(
+                           style: TextStyle(color: Colors.black,fontSize: 20),
+                           decoration: InputDecoration(
+                             // contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                             hintText: "Find your Stock",
+                             hintStyle: const TextStyle(color: Colors.black),
+                             labelText: "Search",
+                             labelStyle: const TextStyle(color: Colors.black),
+                             border: OutlineInputBorder(
+                               borderRadius: BorderRadius.circular(10.0),
+                             ),
+                             focusedBorder:const OutlineInputBorder( // Border styling
+                               borderSide: BorderSide(color: Colors.black),
+                             ),
+                             enabledBorder: const OutlineInputBorder( // Border styling
+                               borderSide: BorderSide(color: Colors.black),
+                             ),
+                             suffixIcon: IconButton(onPressed: (){
+                             if(_formKey.currentState!.validate()){
+                               Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
+                             }
+                           }, icon: Icon(Icons.search)),
+                           ),
+                             validator: (value){
+                             if(L.symbol.contains(value!.toUpperCase().toString())){
+                                toPass=value.toString().toUpperCase();
+                                print(toPass);
+                               return null;
+                             }
+                             else{
+                               return "No Stock of this name";
+                             }
+                             },
+                         ),
+                   ),
+                 ),
+               ),
+                 SizedBox(height: 20,),
+                 Expanded(
+                   child: Container(
+                     // color: Colors.black12,
+                     child: ListView.builder(
+                              itemCount:L.symbol.length,
+                              itemBuilder: (context,index){
+                            return ListTile(
+                              subtitle: Container(
+                                color: index%2==0?Colors.blue[700]:Colors.blue[600],
+                                child: Center(
+                                  child: Column(children: [
+                                    Text('  '),
+                                    Text(L.symbol[index],style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.black),),
+                                    Text('  '),
+                                    Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
+                                    Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text("Total Trade Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text('  '),
+                                    ],
+                                  ),
+                                ),
+                              ),
 
-                    );
-                  },
-             // controller: ScrollController(initialScrollOffset: scrollPosition),
+                            );
+                          },
+                     // controller: ScrollController(initialScrollOffset: scrollPosition),
       ),
+                   ),
+                 ),
+               ],
+             ),
            ),
     );
   }
