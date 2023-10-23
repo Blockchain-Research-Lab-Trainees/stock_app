@@ -16,24 +16,5 @@ class StoreList{
   List<dynamic> perChange365d=[];
   List<dynamic> perChange30d=[];
 
-  // StoreList({
-  //   required this.symbol,
-  //   required this.dayHigh,
-  //   required this.dayLow,
-  //   required this.lastPrice,
-  //   required this.identifier,
-  //   required this.open,
-  //   required this.previousClose,
-  //   required this.change,
-  //   required this.pchange,
-  //   required this.totalTradedValue,
-  //   required this.totalTradedVolume,
-  //   required this.lastUpdateTime,
-  //   required this.yearHigh,
-  //   required this.yearLow,
-  //   required this.perChange365d,
-  //   required this.perChange30d,
-  // });
-
 }
 

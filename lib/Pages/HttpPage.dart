@@ -46,9 +46,6 @@ class _HttpPageState extends State<HttpPage> {
     if(response.statusCode==200){
       stockData=stockFromMap(response.body);
       print(stockData![5].symbol.toString());
-      // if(stockData!.contains(symbol.compareTo("HDFCBANK"))){
-      //
-      // }
       stockData!.forEach((element) {
         setState(() {
 
@@ -85,7 +82,8 @@ class _HttpPageState extends State<HttpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(
+      appBar: AppBar(backgroundColor: Colors.deepPurple,
+        title: Center(
         child: Column(children: [
           TextButton(onPressed: (){
             if(L.symbol!=null){
@@ -98,49 +96,35 @@ class _HttpPageState extends State<HttpPage> {
       ),
       ),
       body:
-       // Column(
-       //   children: [
-           // TextButton(onPressed: (){DetailStock(L.symbol[2]);}, child:Text('try') ),
            Container(
+             color: Colors.red.shade800,
              child: ListView.builder(
-
                       itemCount:L.symbol.length,
                       itemBuilder: (context,index){
                     return ListTile(
-                      subtitle: Column(children: [
-                        Text('  '),
-                        Text('  '),
-                        Text(L.symbol[index],style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
-                        Text('  '),
-                        // Text(identifier[index].toString()),
-                        Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                        Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                        Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                        // Text(lastPrice[index].toString()),
-                        // Text(previousClose[index].toString()),
-                        // Text(change[index].toString()),
-                        // Text(pchange[index].toString()),
-                        Text("Total Traded Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                        Text("Total Traded Value: "+L.totalTradedValue[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                        Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                        Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                        // Text(yearLow[index].toString()),
-                        // Text(perChange365d[index].toString()),
-                        // Text(perChange30d[index].toString()),
-
-                        ],
+                      subtitle: Container(
+                        color: index%2==0?Colors.redAccent:Colors.red,
+                        child: Column(children: [
+                          Text('  '),
+                          Text(L.symbol[index],style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
+                          Text('  '),
+                          Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+                          Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                          Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                          Text("Total Traded Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                          Text("Total Traded Value: "+L.totalTradedValue[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                          Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                          Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                          Text('  '),
+                          ],
+                        ),
                       ),
 
                     );
                   },
-              controller: ScrollController(initialScrollOffset: scrollPosition),
+             // controller: ScrollController(initialScrollOffset: scrollPosition),
       ),
-
            ),
-
-
-      //
-      // body: Text(data.length.toString()),
     );
   }
 }
