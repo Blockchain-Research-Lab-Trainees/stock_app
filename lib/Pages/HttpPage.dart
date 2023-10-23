@@ -1,8 +1,9 @@
 // import 'dart:convert';
-
+import 'package:stock_app/Data/StoreList.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:stock_app/Data/Model.dart';
+import 'package:stock_app/Pages/DetailStock.dart';
 import 'package:stock_app/utils/Routes.dart';
 import 'package:sensors/sensors.dart';
 class HttpPage extends StatefulWidget {
@@ -11,25 +12,9 @@ class HttpPage extends StatefulWidget {
   @override
   State<HttpPage> createState() => _HttpPageState();
 }
-
+StoreList L=StoreList();
 class _HttpPageState extends State<HttpPage> {
   double scrollPosition = 0.0;
-   List<dynamic> symbol=[];
-   List<dynamic> identifier=[];
-   List<dynamic> open=[];
-   List<dynamic> dayHigh=[];
-   List<dynamic> dayLow=[];
-   List<dynamic> lastPrice=[];
-   List<dynamic> previousClose=[];
-   List<dynamic> change=[];
-   List<dynamic> pchange=[];
-   List<dynamic> totalTradedVolume=[];
-   List<dynamic> totalTradedValue=[];
-   List<dynamic> lastUpdateTime=[];
-   List<dynamic> yearHigh=[];
-   List<dynamic> yearLow=[];
-   List<dynamic> perChange365d=[];
-   List<dynamic> perChange30d=[];
 
 
    void initState(){
@@ -66,24 +51,27 @@ class _HttpPageState extends State<HttpPage> {
       // }
       stockData!.forEach((element) {
         setState(() {
-          symbol.add(element.symbol.toString());
-          identifier.add(element.identifier.toString());
-          open.add(element.open.toString());
-          dayHigh.add(element.dayHigh.toString());
-          dayLow.add(element.dayLow.toString());
-          lastPrice.add(element.lastPrice.toString());
-          previousClose.add(element.previousClose.toString());
-          change.add(element.change.toString());
-          pchange.add(element.pChange.toString());
-          totalTradedVolume.add(element.totalTradedVolume.toString());
-          totalTradedValue.add(element.totalTradedValue.toString());
-          lastUpdateTime.add(element.lastUpdateTime.toString());
-          yearHigh.add(element.yearHigh.toString());
-          yearLow.add(element.yearLow.toString());
-          perChange365d.add(element.perChange365D.toString());
-          perChange30d.add(element.perChange30D.toString());
+
+          L.symbol.add(element.symbol.toString());
+          L.identifier.add(element.identifier.toString());
+          L.open.add(element.open.toString());
+          L.dayHigh.add(element.dayHigh.toString());
+          L.dayLow.add(element.dayLow.toString());
+          L.lastPrice.add(element.lastPrice.toString());
+          L.previousClose.add(element.previousClose.toString());
+          L.change.add(element.change.toString());
+          L.pchange.add(element.pChange.toString());
+          L.totalTradedVolume.add(element.totalTradedVolume.toString());
+          L.totalTradedValue.add(element.totalTradedValue.toString());
+          L.lastUpdateTime.add(element.lastUpdateTime.toString());
+          L.yearHigh.add(element.yearHigh.toString());
+          L.yearLow.add(element.yearLow.toString());
+          L.perChange365d.add(element.perChange365D.toString());
+          L.perChange30d.add(element.perChange30D.toString());
+
         });
       });
+
     }else{
       print('error');
     }
@@ -99,48 +87,56 @@ class _HttpPageState extends State<HttpPage> {
     return Scaffold(
       appBar: AppBar(title: Center(
         child: Column(children: [
+          TextButton(onPressed: (){
+            if(L.symbol!=null){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailStock(sym: "UBL")));
+              // DetailStock(sym: L.symbol[1].toString());
+            }
+          }, child:Text('try',style: TextStyle(color: Colors.white),) ),
           Text("Stocks"),
         ],),
       ),
       ),
       body:
-       Container(
-         child: ListView.builder(
-                  itemCount:symbol.length,
-                  itemBuilder: (context,index){
-                return ListTile(
-                  subtitle: Column(children: [
-                    Text('  '),
-                    Text('  '),
-                    Text(symbol[index],style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
-                    Text('  '),
-                    // Text(identifier[index].toString()),
-                    Text("Open with Price: "+open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                    Text("Day High Price: "+dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                    Text("Day Low Price: "+dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                    // Text(lastPrice[index].toString()),
-                    // Text(previousClose[index].toString()),
-                    // Text(change[index].toString()),
-                    // Text(pchange[index].toString()),
-                    Text("Total Traded Volume: "+totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                    Text("Total Traded Value: "+totalTradedValue[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                    Text("Last Update: "+lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                    Text("Year High Price: "+yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-                    // Text(yearLow[index].toString()),
-                    // Text(perChange365d[index].toString()),
-                    // Text(perChange30d[index].toString()),
+       // Column(
+       //   children: [
+           // TextButton(onPressed: (){DetailStock(L.symbol[2]);}, child:Text('try') ),
+           Container(
+             child: ListView.builder(
+                      itemCount:L.symbol.length,
+                      itemBuilder: (context,index){
+                    return ListTile(
+                      subtitle: Column(children: [
+                        Text('  '),
+                        Text('  '),
+                        Text(L.symbol[index],style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
+                        Text('  '),
+                        // Text(identifier[index].toString()),
+                        Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+                        Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                        Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                        // Text(lastPrice[index].toString()),
+                        // Text(previousClose[index].toString()),
+                        // Text(change[index].toString()),
+                        // Text(pchange[index].toString()),
+                        Text("Total Traded Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                        Text("Total Traded Value: "+L.totalTradedValue[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                        Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                        Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                        // Text(yearLow[index].toString()),
+                        // Text(perChange365d[index].toString()),
+                        // Text(perChange30d[index].toString()),
 
-                    // Text(monthYear[index],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25)),
-                    // Text('  '),
-                    // Text('Volume : '+vol[index],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                  ],
-                  ),
+                        ],
+                      ),
 
-                );
-              },
-          controller: ScrollController(initialScrollOffset: scrollPosition),
+                    );
+                  },
+              controller: ScrollController(initialScrollOffset: scrollPosition),
       ),
-       ),
+
+           ),
+
 
       //
       // body: Text(data.length.toString()),

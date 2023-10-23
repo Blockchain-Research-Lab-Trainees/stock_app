@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Pages/DetailStock.dart';
 import 'utils/Routes.dart';
 import 'package:flutter/services.dart';
 import 'package:stock_app/Pages/HttpPage.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         routes: {
         '/': (context) => HttpPage(),
         MyRoutes.HttpPageRoutes: (context) => HttpPage(),
+          // MyRoutes.DetailStock:(context) => DetailStock(),
         }
     );
   }
