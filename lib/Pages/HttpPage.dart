@@ -103,6 +103,7 @@ class _HttpPageState extends State<HttpPage> {
            // TextButton(onPressed: (){DetailStock(L.symbol[2]);}, child:Text('try') ),
            Container(
              child: ListView.builder(
+
                       itemCount:L.symbol.length,
                       itemBuilder: (context,index){
                     return ListTile(

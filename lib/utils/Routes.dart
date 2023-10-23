@@ -1,4 +1,5 @@
 class MyRoutes{
   static String HttpPageRoutes = "/HttpPage";
-  static String DetailStock ="/DetailStock";
+  static String DetailStockRoutes ="/DetailStock";
+  static String FirstPageRoutes ="/FirstPage";
 }
