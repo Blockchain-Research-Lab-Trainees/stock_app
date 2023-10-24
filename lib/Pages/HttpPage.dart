@@ -28,7 +28,7 @@ class _HttpPageState extends State<HttpPage> {
       } else if (scrollPosition > 1.0) {
         scrollPosition = 1.0;
       }
-      // setState((){});
+      setState((){});
     });
    }
 
@@ -88,7 +88,14 @@ class _HttpPageState extends State<HttpPage> {
       ),
       body:
            Container(
-             color: Colors.black87,
+             height: MediaQuery.of(context).size.height,
+             decoration:const BoxDecoration(
+               image: DecorationImage(
+                 image:AssetImage('lib/assets/BGW.jpeg'), // Replace with your image asset path
+                 fit: BoxFit.cover, // Adjust the fit as needed
+                  // opacity: 0.9,
+               ),
+             ),
              child: Column(
                children: [Center(
                  child: Padding(
@@ -141,6 +148,7 @@ class _HttpPageState extends State<HttpPage> {
                  SizedBox(height: 20,),
                  Expanded(
                    child: Container(
+
                      // color: Colors.black12,
                      child: ListView.builder(
                               itemCount:L.symbol.length,
@@ -150,26 +158,38 @@ class _HttpPageState extends State<HttpPage> {
                                 // color: index%2==0?Colors.blue[700]:Colors.blue[600],
                                 color: Colors.white,
                                 child: Center(
-                                  child: Column(children: [
-                                    Text('  '),
-                                    Text(" ${L.symbol[index]} ",style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white,backgroundColor: Colors.black),),
-                                    Text('  '),
-                                    Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black),),
-                                    Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                    Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                    Text("Total Trade Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                    // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
-                                    Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                    Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                    Text('  '),
-                                    ],
+
+                                  child: ElevatedButton(
+                                    onPressed: (){
+                                      Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: L.symbol[index])));
+                                    },
+                                    style:ElevatedButton.styleFrom(backgroundColor: Colors.white,),
+                                    child: Center(
+                                      child: Column(children: [
+                                        Text('  '),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("${L.symbol[index]} ",style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white,backgroundColor: Colors.black),),
+                                        ),
+                                        Text('  '),
+                                        Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black),),
+                                        Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        Text("Total Trade Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                        Text("Last Price: "+L.lastPrice[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        Text('  '),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
 
                             );
                           },
-                     // controller: ScrollController(initialScrollOffset: scrollPosition),
+                     controller: ScrollController(initialScrollOffset: scrollPosition),
       ),
                    ),
                  ),

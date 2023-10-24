@@ -45,62 +45,77 @@ class _DetailStockState extends State<DetailStock> {
         ),
         body:SingleChildScrollView(
           child: Container(
-            child: Center(
-              child: Column(
+            height: MediaQuery.of(context).size.height,
+            decoration:const BoxDecoration(
+              image: DecorationImage(
+                image:AssetImage('lib/assets/BGT.jpeg'), // Replace with your image asset path
+                fit: BoxFit.cover, // Adjust the fit as needed
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
       children: [
           Text('  '),
-              // Text(identifier[index].toString()),
-          Text("Open with Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-          Text(L.open[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+                // Text(identifier[index].toString()),
+          Text("Open with Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white),),
+          Text(L.open[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
-          Text("Day High Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.dayHigh[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Day High Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.dayHigh[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
-          Text("Day Low Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.dayLow[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-          Text(' '),
-
-          Text("Last Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.lastPrice[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Day Low Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.dayLow[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Previous Close Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.previousClose[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Last Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.lastPrice[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Change in Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.change[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Previous Close Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.previousClose[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
+          Text(' '),
+
+          Text("Change in Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.change[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
           // Text("Open with Price: "+L.pchange[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text("Total Traded Volume: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.totalTradedVolume[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Total Traded Volume : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.totalTradedVolume[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Total Traded Value: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.totalTradedValue[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Total Traded Value : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.totalTradedValue[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Last Update: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.lastUpdateTime[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Last Update : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.lastUpdateTime[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Year High Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.yearHigh[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Year High Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.yearHigh[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Year Low Price: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.yearLow[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Year Low Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.yearLow[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Change Price in 365 days: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.perChange365d[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+          Text("Change Price in 365 days : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.perChange365d[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
           Text(' '),
 
-          Text("Change Price in 30 days: ",style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
-          Text(L.perChange30d[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-
+          Text("Change Price in 30 days : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
+          Text(L.perChange30d[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
+          Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
       ],),
+              ),
             ),
           ),
         ),
