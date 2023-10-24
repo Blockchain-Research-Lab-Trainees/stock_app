@@ -83,55 +83,58 @@ class _HttpPageState extends State<HttpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue[800],
-        title: Text("STOCKS LIST",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
+        backgroundColor: Colors.black,
+        title: Text("STOCKS LIST",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 22),),
       ),
       body:
            Container(
-             color: Colors.blue[500],
+             color: Colors.black87,
              child: Column(
                children: [Center(
                  child: Padding(
                    padding: const EdgeInsets.fromLTRB(10,20,10,0),
-                   child: Form(
-                     key: _formKey,
-                     child:
-                       // / Row(
-                       // children: [
-                         TextFormField(
-                           style: TextStyle(color: Colors.black,fontSize: 20),
-                           decoration: InputDecoration(
-                             // contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                             hintText: "Find your Stock",
-                             hintStyle: const TextStyle(color: Colors.black),
-                             labelText: "Search",
-                             labelStyle: const TextStyle(color: Colors.black),
-                             border: OutlineInputBorder(
-                               borderRadius: BorderRadius.circular(10.0),
+                   child: Container(
+                     color: Colors.black87,
+                     child: Form(
+                       key: _formKey,
+                       child:
+                         // / Row(
+                         // children: [
+                           TextFormField(
+                             style: TextStyle(color: Colors.white,fontSize: 20),
+                             decoration: InputDecoration(
+                               // contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                               hintText: "Find your Stock",
+                               hintStyle: const TextStyle(color: Colors.white),
+                               labelText: "Search",
+                               labelStyle: const TextStyle(color: Colors.white),
+                               border: OutlineInputBorder(
+                                 borderRadius: BorderRadius.circular(10.0),
+                               ),
+                               focusedBorder:const OutlineInputBorder( // Border styling
+                                 borderSide: BorderSide(color: Colors.white),
+                               ),
+                               enabledBorder: const OutlineInputBorder( // Border styling
+                                 borderSide: BorderSide(color: Colors.white),
+                               ),
+                               suffixIcon: IconButton(onPressed: (){
+                               if(_formKey.currentState!.validate()){
+                                 Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
+                               }
+                             }, icon: Icon(Icons.search,color: Colors.white,)),
                              ),
-                             focusedBorder:const OutlineInputBorder( // Border styling
-                               borderSide: BorderSide(color: Colors.black),
-                             ),
-                             enabledBorder: const OutlineInputBorder( // Border styling
-                               borderSide: BorderSide(color: Colors.black),
-                             ),
-                             suffixIcon: IconButton(onPressed: (){
-                             if(_formKey.currentState!.validate()){
-                               Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
-                             }
-                           }, icon: Icon(Icons.search)),
+                               validator: (value){
+                               if(L.symbol.contains(value!.toUpperCase().toString())){
+                                  toPass=value.toString().toUpperCase();
+                                  // print(toPass);
+                                 return null;
+                               }
+                               else{
+                                 return "No Stock of this name";
+                               }
+                               },
                            ),
-                             validator: (value){
-                             if(L.symbol.contains(value!.toUpperCase().toString())){
-                                toPass=value.toString().toUpperCase();
-                                print(toPass);
-                               return null;
-                             }
-                             else{
-                               return "No Stock of this name";
-                             }
-                             },
-                         ),
+                     ),
                    ),
                  ),
                ),
@@ -144,19 +147,20 @@ class _HttpPageState extends State<HttpPage> {
                               itemBuilder: (context,index){
                             return ListTile(
                               subtitle: Container(
-                                color: index%2==0?Colors.blue[700]:Colors.blue[600],
+                                // color: index%2==0?Colors.blue[700]:Colors.blue[600],
+                                color: Colors.white,
                                 child: Center(
                                   child: Column(children: [
                                     Text('  '),
-                                    Text(L.symbol[index],style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.black),),
+                                    Text(" ${L.symbol[index]} ",style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white,backgroundColor: Colors.black),),
                                     Text('  '),
-                                    Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-                                    Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
-                                    Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
-                                    Text("Total Trade Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black),),
+                                    Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                    Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                    Text("Total Trade Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
                                     // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
-                                    Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
-                                    Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
+                                    Text("Last Update: "+L.lastUpdateTime[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                    Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
                                     Text('  '),
                                     ],
                                   ),
