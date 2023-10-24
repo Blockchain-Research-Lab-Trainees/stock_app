@@ -21,17 +21,17 @@ class _HttpPageState extends State<HttpPage> {
     super.initState();
     getHttpRequest();
     accelerometerEvents.listen((AccelerometerEvent event) {
-    double sensitivity = 2.0;
+      // print('Accelerometer: x=${event.x}, y=${event.y}, z=${event.z}');
+     double sensitivity = 2.0;
+     setState((){
     scrollPosition += event.y * sensitivity;
-      if (scrollPosition < 0) {
+       if (scrollPosition < 0) {
         scrollPosition = 0;
       } else if (scrollPosition > 1.0) {
-        scrollPosition = 1.0;
-      }
-      setState((){});
+         scrollPosition = 1.0;}
+      });
     });
    }
-
   List<Stock>? stockData;
 
   Future <void> getHttpRequest()async{
@@ -74,10 +74,10 @@ class _HttpPageState extends State<HttpPage> {
     }
   }
   static String toPass='';
-  void dispose() {
-    super.dispose();
-    accelerometerEvents.drain();
-  }
+  // void dispose() {
+  //   super.dispose();
+  //   accelerometerEvents.drain();
+  // }
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class _HttpPageState extends State<HttpPage> {
 
                      // color: Colors.black12,
                      child: ListView.builder(
-                              itemCount:L.symbol.length,
+                       itemCount:L.symbol.length,
                               itemBuilder: (context,index){
                             return ListTile(
                               subtitle: Container(
@@ -188,6 +188,7 @@ class _HttpPageState extends State<HttpPage> {
                               ),
 
                             );
+                            // print(scrollPosition);
                           },
                      controller: ScrollController(initialScrollOffset: scrollPosition),
       ),
@@ -198,4 +199,8 @@ class _HttpPageState extends State<HttpPage> {
            ),
     );
   }
+  void dispose() {
+      super.dispose();
+      accelerometerEvents.drain();
+    }
 }
