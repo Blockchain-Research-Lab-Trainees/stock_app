@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:stock_app/Data/Model.dart';
 import 'package:stock_app/Pages/DetailStock.dart';
 import 'package:stock_app/utils/Routes.dart';
-import 'package:sensors/sensors.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+// import 'package:sensors/sensors.dart';
 class HttpPage extends StatefulWidget {
   const HttpPage({super.key});
 
@@ -18,7 +19,6 @@ class _HttpPageState extends State<HttpPage> {
 
 
    void initState(){
-    super.initState();
     getHttpRequest();
     accelerometerEvents.listen((AccelerometerEvent event) {
       // print('Accelerometer: x=${event.x}, y=${event.y}, z=${event.z}');
@@ -31,6 +31,7 @@ class _HttpPageState extends State<HttpPage> {
          scrollPosition = 1.0;}
       });
     });
+    super.initState();
    }
   List<Stock>? stockData;
 
@@ -128,7 +129,9 @@ class _HttpPageState extends State<HttpPage> {
                                if(_formKey.currentState!.validate()){
                                  Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
                                }
-                             }, icon: Icon(Icons.search,color: Colors.white,)),
+                             }, icon: Icon(Icons.search,color: Colors.white,),
+
+                               ),
                              ),
                                validator: (value){
                                if(L.symbol.contains(value!.toUpperCase().toString())){
