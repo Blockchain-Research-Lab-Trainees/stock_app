@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => FirstPage(),
         MyRoutes.HttpPageRoutes: (context) => HttpPage(),
         MyRoutes.FirstPageRoutes:(context) => FirstPage(),
-        MyRoutes.Login_auth:(context) => Login(),
+        // MyRoutes.Login_auth:(context) => Login(),
         }
     );
   }

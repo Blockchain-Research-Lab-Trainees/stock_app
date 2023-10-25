@@ -110,6 +110,26 @@ class _DetailStockState extends State<DetailStock> {
           Text('  '),
         Text('  '),
         Text('  '),
+        ElevatedButton(
+          style:ElevatedButton.styleFrom(backgroundColor: Colors.white,
+            maximumSize: Size(115, 55),
+            padding: EdgeInsets.symmetric(vertical: 16,horizontal: 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+          ),
+          onPressed:(){
+          }, child: Row(children: [
+          Text('BUY ',style: TextStyle(color: Colors.yellow[800],fontSize: 22,fontWeight: FontWeight.w800),),
+          Icon(Icons.attach_money_rounded ,color: Colors.yellow[800],),
+        ],),
+        ),
+        Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
+        Text('  '),
         Text('  '),
         Text('  '),
         Text('  '),

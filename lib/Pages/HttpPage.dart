@@ -134,6 +134,7 @@ class _HttpPageState extends State<HttpPage> {
                                enabledBorder: const OutlineInputBorder( // Border styling
                                  borderSide: BorderSide(color: Colors.white),
                                ),
+
                                suffixIcon: IconButton(onPressed: (){
                                if(_formKey.currentState!.validate()){
                                  Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
@@ -142,6 +143,11 @@ class _HttpPageState extends State<HttpPage> {
 
                                ),
                              ),
+                               onFieldSubmitted: (value){
+                                 if(_formKey.currentState!.validate()){
+                                   Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
+                                 }
+                               },
                                validator: (value){
                                if(L.symbol.contains(value!.toUpperCase().toString())){
                                   toPass=value.toString().toUpperCase();
