@@ -6,6 +6,8 @@ import 'package:stock_app/Data/Model.dart';
 import 'package:stock_app/Pages/DetailStock.dart';
 import 'package:stock_app/utils/Routes.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+
+import 'signup_auth.dart';
 // import 'package:sensors/sensors.dart';
 class HttpPage extends StatefulWidget {
   const HttpPage({super.key});
@@ -83,6 +85,13 @@ class _HttpPageState extends State<HttpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // drawer: Column(
+      //   children: [
+      //     ElevatedButton(onPressed: (){
+      //       Navigator.push(context,  MaterialPageRoute(builder: (context) => Login()));
+      //     }, child: Text('Logout'),),
+      //   ],
+      // ),
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text("STOCKS LIST",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 22),),
@@ -189,7 +198,6 @@ class _HttpPageState extends State<HttpPage> {
                                   ),
                                 ),
                               ),
-
                             );
                             // print(scrollPosition);
                           },
