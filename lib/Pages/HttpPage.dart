@@ -21,6 +21,7 @@ class _HttpPageState extends State<HttpPage> {
 
 
    void initState(){
+     super.initState();
     getHttpRequest();
     accelerometerEvents.listen((AccelerometerEvent event) {
       // print('Accelerometer: x=${event.x}, y=${event.y}, z=${event.z}');
@@ -33,7 +34,6 @@ class _HttpPageState extends State<HttpPage> {
          scrollPosition = 1.0;}
       });
     });
-    super.initState();
    }
   List<Stock>? stockData;
 
@@ -173,30 +173,40 @@ class _HttpPageState extends State<HttpPage> {
                               itemBuilder: (context,index){
                             return ListTile(
                               subtitle: Container(
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadiusDirectional.all(Radius.circular(30)),
+                              //     boxShadow: [
+                              // BoxShadow(
+                              //   color: Colors.grey,
+                              //   blurRadius: 4,),],),
                                 // color: index%2==0?Colors.blue[700]:Colors.blue[600],
-                                color: Colors.white,
+                                // color: Colors.white,
                                 child: Center(
 
                                   child: ElevatedButton(
                                     onPressed: (){
                                       Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: L.symbol[index])));
                                     },
-                                    style:ElevatedButton.styleFrom(backgroundColor: Colors.white,),
+                                    style:ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                                        shadowColor:Colors.grey,
+
+                                        shape: RoundedRectangleBorder(borderRadius:BorderRadiusDirectional.all(Radius.circular(30)))),
                                     child: Center(
                                       child: Column(children: [
+
                                         Text('  '),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text("${L.symbol[index]} ",style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white,backgroundColor: Colors.black),),
                                         ),
                                         Text('  '),
-                                        Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black),),
-                                        Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                        Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                        Text("Total Trade Volume: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black),),
+                                        Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
+                                        Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
+                                        Text("Total Trade: "+L.totalTradedVolume[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
                                         // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
-                                        Text("Last Price: "+L.lastPrice[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
-                                        Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.black)),
+                                        Text("Last Price: "+L.lastPrice[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
+                                        Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
                                         Text('  '),
                                         ],
                                       ),

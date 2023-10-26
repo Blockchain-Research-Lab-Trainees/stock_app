@@ -1,3 +1,4 @@
+import 'package:sensors_plus/sensors_plus.dart';
 import 'package:stock_app/Data/StoreList.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_app/Pages/HttpPage.dart';
@@ -26,11 +27,22 @@ class _DetailStockState extends State<DetailStock> {
     }
     });
   }
+  double scrollPosition = 0.0;
   String ch='';
-  // void initState() {
-  //   super.initState();
-  //   check(ch);
-  // }
+  void initState() {
+     super.initState();
+     accelerometerEvents.listen((AccelerometerEvent event) {
+       // print('Accelerometer: x=${event.x}, y=${event.y}, z=${event.z}');
+       double sensitivity = 2.0;
+       setState((){
+         scrollPosition += event.y * sensitivity;
+         if (scrollPosition < 0) {
+           scrollPosition = 0;
+         } else if (scrollPosition > 1.0) {
+           scrollPosition = 1.0;}
+       });
+     });
+   }
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -136,8 +148,10 @@ class _DetailStockState extends State<DetailStock> {
         Text('  '),
       ],),
               ),
+              controller: ScrollController(initialScrollOffset: scrollPosition),
             ),
           ),
+
         ),
     );
   }
