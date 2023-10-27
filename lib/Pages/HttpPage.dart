@@ -22,7 +22,7 @@ class _HttpPageState extends State<HttpPage> {
 
    void initState(){
      super.initState();
-    getHttpRequest();
+    // getHttpRequest();
     accelerometerEvents.listen((AccelerometerEvent event) {
       // print('Accelerometer: x=${event.x}, y=${event.y}, z=${event.z}');
      double sensitivity = 2.0;
@@ -138,7 +138,6 @@ class _HttpPageState extends State<HttpPage> {
                                enabledBorder: const OutlineInputBorder( // Border styling
                                  borderSide: BorderSide(color: Colors.white),
                                ),
-
                                suffixIcon: IconButton(onPressed: (){
                                if(_formKey.currentState!.validate()){
                                  Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
@@ -170,26 +169,21 @@ class _HttpPageState extends State<HttpPage> {
                  SizedBox(height: 20,),
                  Expanded(
                    child: Container(
-
-                     // color: Colors.black12,
-                     child: ListView.builder(
+                   child:
+                   FutureBuilder<void>(
+                    future: getHttpRequest(),
+                    builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                    } else {
+                      return ListView.builder(
                        itemCount:L.symbol.length,
                               itemBuilder: (context,index){
                             return ListTile(
                               subtitle: Container(
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadiusDirectional.all(Radius.circular(30)),
-                              //     boxShadow: [
-                              // BoxShadow(
-                              //   color: Colors.grey,
-                              //   blurRadius: 4,),],),
-                                // color: index%2==0?Colors.blue[700]:Colors.blue[600],
-                                // color: Colors.white,
-                                child:L.symbol.length==0? CircularProgressIndicator(
-                                  color: Colors.white,
-                                ):
-                                Center(
-
+                              child: Center(
                                   child: ElevatedButton(
                                     onPressed: (){
                                       Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: L.symbol[index])));
@@ -206,7 +200,7 @@ class _HttpPageState extends State<HttpPage> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text("${L.symbol[index]} ",style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white,backgroundColor: Colors.black),),
                                         ),
-                                        Text('  '),
+                                        SizedBox(height: 2,),
                                         Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black),),
                                         Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
                                         Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
@@ -214,8 +208,8 @@ class _HttpPageState extends State<HttpPage> {
                                         // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
                                         Text("Last Price: "+L.lastPrice[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
                                         Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
-                                        Text('  '),
-                                        ],
+                                        SizedBox(height: 2,),
+                                      ],
                                       ),
                                     ),
                                   ),
@@ -225,9 +219,11 @@ class _HttpPageState extends State<HttpPage> {
                             // print(scrollPosition);
                           },
                      controller: ScrollController(initialScrollOffset: scrollPosition),
-      ),
+      );
+                      }
+                    }
                    ),
-                 ),
+                 ),),
                ],
              ),
            ),
