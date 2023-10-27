@@ -82,6 +82,10 @@ class _HttpPageState extends State<HttpPage> {
   //   accelerometerEvents.drain();
   // }
   final _formKey = GlobalKey<FormState>();
+  void dispose() {
+    super.dispose();
+    accelerometerEvents.drain();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,7 +185,10 @@ class _HttpPageState extends State<HttpPage> {
                               //   blurRadius: 4,),],),
                                 // color: index%2==0?Colors.blue[700]:Colors.blue[600],
                                 // color: Colors.white,
-                                child: Center(
+                                child:L.symbol.length==0? CircularProgressIndicator(
+                                  color: Colors.white,
+                                ):
+                                Center(
 
                                   child: ElevatedButton(
                                     onPressed: (){
@@ -226,8 +233,5 @@ class _HttpPageState extends State<HttpPage> {
            ),
     );
   }
-  void dispose() {
-      super.dispose();
-      accelerometerEvents.drain();
-    }
+
 }

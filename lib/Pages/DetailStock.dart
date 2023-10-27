@@ -44,6 +44,10 @@ class _DetailStockState extends State<DetailStock> {
      });
    }
   @override
+  void dispose() {
+    super.dispose();
+    accelerometerEvents.drain();
+  }
   Widget build(BuildContext context) {
     setState(() {
       ch = widget.sym;
