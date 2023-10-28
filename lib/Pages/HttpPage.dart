@@ -37,6 +37,7 @@ class _HttpPageState extends State<HttpPage> {
     });
    }
   List<Stock>? stockData;
+  bool display =false;
 
   Future <void> getHttpRequest()async{
     final String apiKey ="1e71ef091fmsh9f841ffb3c10310p19c60fjsna11ad101e2b5";
@@ -87,6 +88,14 @@ class _HttpPageState extends State<HttpPage> {
     super.dispose();
     accelerometerEvents.drain();
   }
+  List<dynamic> filteredList=L.symbol;
+
+  void updateList(String query) {
+    setState(() {
+      filteredList = L.symbol.where((item) => item.contains(query.toUpperCase())).toList();
+      print(filteredList[0]);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,53 +126,78 @@ class _HttpPageState extends State<HttpPage> {
                    padding: const EdgeInsets.fromLTRB(10,20,10,0),
                    child: Container(
                      color: Colors.black87,
-                     child: Form(
-                       key: _formKey,
-                       child:
-                         // / Row(
-                         // children: [
-                           TextFormField(
-                             style: TextStyle(color: Colors.white,fontSize: 20),
-                             decoration: InputDecoration(
-                               // contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                               hintText: "Find your Stock",
-                               hintStyle: const TextStyle(color: Colors.white),
-                               labelText: "Search",
-                               labelStyle: const TextStyle(color: Colors.white),
-                               border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(10.0),
-                               ),
-                               focusedBorder:const OutlineInputBorder( // Border styling
-                                 borderSide: BorderSide(color: Colors.white),
-                               ),
-                               enabledBorder: const OutlineInputBorder( // Border styling
-                                 borderSide: BorderSide(color: Colors.white),
-                               ),
-                               suffixIcon: IconButton(onPressed: (){
-                               if(_formKey.currentState!.validate()){
-                                 Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
-                               }
-                             }, icon: Icon(Icons.search,color: Colors.white,),
+                     child: Column(
+                       children: [
+                         Form(
+                           key: _formKey,
+                           child:
+                             // / Row(
+                             // children: [
+                               TextFormField(
+                                 style: TextStyle(color: Colors.white,fontSize: 20),
+                                 decoration: InputDecoration(
+                                   // contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                                   hintText: "Find your Stock",
+                                   hintStyle: const TextStyle(color: Colors.white),
+                                   labelText: "Search",
+                                   labelStyle: const TextStyle(color: Colors.white),
+                                   border: OutlineInputBorder(
+                                     borderRadius: BorderRadius.circular(10.0),
+                                   ),
+                                   focusedBorder:const OutlineInputBorder( // Border styling
+                                     borderSide: BorderSide(color: Colors.white),
+                                   ),
+                                   enabledBorder: const OutlineInputBorder( // Border styling
+                                     borderSide: BorderSide(color: Colors.white),
+                                   ),
+                                   suffixIcon: IconButton(onPressed: (){
+                                   if(_formKey.currentState!.validate()){
+                                     Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
+                                   }
+                                 }, icon: Icon(Icons.search,color: Colors.white,),
 
+                                   ),
+                                 ),
+                                   // onTapOutside: ((){display=false;}),
+                                   onTap: (() { display=true;
+                                   //     displayL();
+                                   }),
+                                   onTapOutside: (event) => display=false,
+                                   onChanged: updateList,
+                                   onFieldSubmitted: (value){
+                                     if(_formKey.currentState!.validate()){
+                                       Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
+                                     }
+                                   },
+                                   validator: (value){
+                                   if(L.symbol.contains(value!.toUpperCase().toString())){
+                                      toPass=value.toString().toUpperCase();
+                                      // print(toPass);
+                                     return null;
+                                   }
+                                   else{
+                                     return "No Stock of this name";
+                                   }
+                                   },
                                ),
-                             ),
-                               onFieldSubmitted: (value){
-                                 if(_formKey.currentState!.validate()){
-                                   Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
-                                 }
-                               },
-                               validator: (value){
-                               if(L.symbol.contains(value!.toUpperCase().toString())){
-                                  toPass=value.toString().toUpperCase();
-                                  // print(toPass);
-                                 return null;
-                               }
-                               else{
-                                 return "No Stock of this name";
-                               }
-                               },
-                           ),
+                         ),
+                         SizedBox(height: 3,),
+                     // display?ListView.builder(itemCount: filteredList.length,itemBuilder: (context,index){
+                     //   return ListTile(subtitle:
+                     //   Container(
+                     //     child:SingleChildScrollView(
+                     //       child: Column(
+                     //         children: [
+                     //           Text(filteredList[index]),
+                     //         ],
+                     //       ),
+                     //     ),
+                     //   ),
+                     //   );
+                     // }):Container(),
+                       ],
                      ),
+
                    ),
                  ),
                ),
@@ -187,7 +221,7 @@ class _HttpPageState extends State<HttpPage> {
                     } else {
                       return
                    ListView.builder(
-                       itemCount:L.symbol.length,
+                       itemCount:display?filteredList.length:L.symbol.length,
                               itemBuilder: (context,index){
                             return ListTile(
                               subtitle: Container(
