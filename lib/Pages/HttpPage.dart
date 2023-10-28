@@ -17,12 +17,13 @@ class HttpPage extends StatefulWidget {
 }
 StoreList L=StoreList();
 class _HttpPageState extends State<HttpPage> {
+  Future<void>? _futureData;
   double scrollPosition = 0.0;
 
 
    void initState(){
      super.initState();
-    // getHttpRequest();
+     _futureData=getHttpRequest();
     accelerometerEvents.listen((AccelerometerEvent event) {
       // print('Accelerometer: x=${event.x}, y=${event.y}, z=${event.z}');
      double sensitivity = 2.0;
@@ -170,15 +171,22 @@ class _HttpPageState extends State<HttpPage> {
                  Expanded(
                    child: Container(
                    child:
-                   FutureBuilder<void>(
-                    future: getHttpRequest(),
-                    builder: (context, snapshot) {
+                    FutureBuilder<void>(
+                     future: _futureData,
+                     builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return Container(
+                          height: 30,
+                          width:30,
+                          child: CircularProgressIndicator(
+                            color:Colors.white,
+                          ),
+                        );
                     } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                     } else {
-                      return ListView.builder(
+                      return
+                   ListView.builder(
                        itemCount:L.symbol.length,
                               itemBuilder: (context,index){
                             return ListTile(
@@ -195,12 +203,12 @@ class _HttpPageState extends State<HttpPage> {
                                     child: Center(
                                       child: Column(children: [
 
-                                        Text('  '),
+                                        SizedBox(height: 10,),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text("${L.symbol[index]} ",style:TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white,backgroundColor: Colors.black),),
                                         ),
-                                        SizedBox(height: 2,),
+                                        SizedBox(height: 10,),
                                         Text("Open with Price: "+L.open[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black),),
                                         Text("Day High Price: "+L.dayHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
                                         Text("Day Low Price: "+L.dayLow[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
@@ -208,7 +216,7 @@ class _HttpPageState extends State<HttpPage> {
                                         // Text("Total Trade Value: "+L.totalTradedValue[index].toStringAsFixed(2),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white)),
                                         Text("Last Price: "+L.lastPrice[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
                                         Text("Year High Price: "+L.yearHigh[index].toString(),style:TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.black)),
-                                        SizedBox(height: 2,),
+                                        SizedBox(height: 10,),
                                       ],
                                       ),
                                     ),
@@ -219,11 +227,11 @@ class _HttpPageState extends State<HttpPage> {
                             // print(scrollPosition);
                           },
                      controller: ScrollController(initialScrollOffset: scrollPosition),
-      );
+                        );
                       }
                     }
-                   ),
-                 ),),
+                   ),),
+                 ),
                ],
              ),
            ),

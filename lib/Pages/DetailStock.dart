@@ -76,56 +76,56 @@ class _DetailStockState extends State<DetailStock> {
                 // Text(identifier[index].toString()),
           Text("Open with Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white),),
           Text(L.open[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Day High Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.dayHigh[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Day Low Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.dayLow[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Last Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.lastPrice[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Previous Close Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.previousClose[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Change in Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.change[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           // Text("Open with Price: "+L.pchange[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
           Text("Total Traded Volume : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.totalTradedVolume[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Total Traded Value : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.totalTradedValue[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Last Update : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.lastUpdateTime[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Year High Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.yearHigh[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Year Low Price : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.yearLow[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Change Price in 365 days : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.perChange365d[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height: 2,),
+          SizedBox(height: 10,),
 
           Text("Change Price in 30 days : ",style:TextStyle(fontWeight: FontWeight.w600,fontSize: 25,color: Colors.white)),
           Text(L.perChange30d[ind].toString(),style:TextStyle(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),),
-          SizedBox(height:10),
+          SizedBox(height:30),
         ElevatedButton(
           style:ElevatedButton.styleFrom(backgroundColor: Colors.white,
             maximumSize: Size(115, 55),
@@ -140,7 +140,7 @@ class _DetailStockState extends State<DetailStock> {
           Icon(Icons.attach_money_rounded ,color: Colors.yellow[800],),
         ],),
         ),
-        SizedBox(height:10),
+        SizedBox(height:100),
       ],),
               ),
               // controller: ScrollController(initialScrollOffset: scrollPosition),
