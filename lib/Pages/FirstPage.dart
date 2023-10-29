@@ -50,7 +50,7 @@ class _FirstPageState extends State<FirstPage> {
                     ),
 
                     onPressed:(){
-                    Navigator.push(context,  MaterialPageRoute(builder: (context) => HttpPage()));
+                    Navigator.pushNamed(context, MyRoutes.HttpPageRoutes);
                   }, child: Row(children: [
                       Text('STOCKS ',style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),),
                       Icon(Icons.arrow_right_alt,color: Colors.black,),

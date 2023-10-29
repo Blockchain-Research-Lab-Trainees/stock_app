@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Pages/DetailStock.dart';
 import 'Pages/FirstPage.dart';
+import 'Pages/SearchPage.dart';
 import 'Pages/signup_auth.dart';
 import 'utils/Routes.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => FirstPage(),
         MyRoutes.HttpPageRoutes: (context) => HttpPage(),
         MyRoutes.FirstPageRoutes:(context) => FirstPage(),
+        MyRoutes.SearchPageRoutes:(context) => SearchPage(),
         // MyRoutes.Login_auth:(context) => Login(),
         }
     );

@@ -6,7 +6,7 @@ import 'package:stock_app/Data/Model.dart';
 import 'package:stock_app/Pages/DetailStock.dart';
 import 'package:stock_app/utils/Routes.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-
+import 'SearchPage.dart';
 import 'signup_auth.dart';
 // import 'package:sensors/sensors.dart';
 class HttpPage extends StatefulWidget {
@@ -78,24 +78,24 @@ class _HttpPageState extends State<HttpPage> {
       print('error');
     }
   }
-  static String toPass='';
+  // static String toPass='';
   // void dispose() {
   //   super.dispose();
   //   accelerometerEvents.drain();
   // }
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   void dispose() {
     super.dispose();
     accelerometerEvents.drain();
   }
-  List<dynamic> filteredList=L.symbol;
+  // List<dynamic> filteredList=L.symbol;
 
-  void updateList(String query) {
-    setState(() {
-      filteredList = L.symbol.where((item) => item.contains(query.toUpperCase())).toList();
-      print(filteredList[0]);
-    });
-  }
+  // void updateList(String query) {
+  //   setState(() {
+  //     filteredList = L.symbol.where((item) => item.contains(query.toUpperCase())).toList();
+  //     print(filteredList[0]);
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,8 +107,22 @@ class _HttpPageState extends State<HttpPage> {
       //   ],
       // ),
       appBar: AppBar(
+        toolbarHeight: 80,
         backgroundColor: Colors.black,
-        title: Text("STOCKS LIST",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 22),),
+        title: Row(
+          children: [
+            Text("STOCKS LIST",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 22),),
+            SizedBox(width:60 ,),
+            FloatingActionButton(onPressed: (){
+              Navigator.pushNamed(context, MyRoutes.SearchPageRoutes);
+            },
+              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+              backgroundColor: Colors.white,
+              child:Icon(Icons.search,color: Colors.black,),
+
+            ),
+          ],
+        ),
       ),
       body:
            Container(
@@ -121,86 +135,7 @@ class _HttpPageState extends State<HttpPage> {
                ),
              ),
              child: Column(
-               children: [Center(
-                 child: Padding(
-                   padding: const EdgeInsets.fromLTRB(10,20,10,0),
-                   child: Container(
-                     color: Colors.black87,
-                     child: Column(
-                       children: [
-                         Form(
-                           key: _formKey,
-                           child:
-                             // / Row(
-                             // children: [
-                               TextFormField(
-                                 style: TextStyle(color: Colors.white,fontSize: 20),
-                                 decoration: InputDecoration(
-                                   // contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                                   hintText: "Find your Stock",
-                                   hintStyle: const TextStyle(color: Colors.white),
-                                   labelText: "Search",
-                                   labelStyle: const TextStyle(color: Colors.white),
-                                   border: OutlineInputBorder(
-                                     borderRadius: BorderRadius.circular(10.0),
-                                   ),
-                                   focusedBorder:const OutlineInputBorder( // Border styling
-                                     borderSide: BorderSide(color: Colors.white),
-                                   ),
-                                   enabledBorder: const OutlineInputBorder( // Border styling
-                                     borderSide: BorderSide(color: Colors.white),
-                                   ),
-                                   suffixIcon: IconButton(onPressed: (){
-                                   if(_formKey.currentState!.validate()){
-                                     Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
-                                   }
-                                 }, icon: Icon(Icons.search,color: Colors.white,),
-
-                                   ),
-                                 ),
-                                   // onTapOutside: ((){display=false;}),
-                                   onTap: (() { display=true;
-                                   //     displayL();
-                                   }),
-                                   onTapOutside: (event) => display=false,
-                                   onChanged: updateList,
-                                   onFieldSubmitted: (value){
-                                     if(_formKey.currentState!.validate()){
-                                       Navigator.push(context,  MaterialPageRoute(builder: (context) => DetailStock(sym: toPass)));
-                                     }
-                                   },
-                                   validator: (value){
-                                   if(L.symbol.contains(value!.toUpperCase().toString())){
-                                      toPass=value.toString().toUpperCase();
-                                      // print(toPass);
-                                     return null;
-                                   }
-                                   else{
-                                     return "No Stock of this name";
-                                   }
-                                   },
-                               ),
-                         ),
-                         SizedBox(height: 3,),
-                     // display?ListView.builder(itemCount: filteredList.length,itemBuilder: (context,index){
-                     //   return ListTile(subtitle:
-                     //   Container(
-                     //     child:SingleChildScrollView(
-                     //       child: Column(
-                     //         children: [
-                     //           Text(filteredList[index]),
-                     //         ],
-                     //       ),
-                     //     ),
-                     //   ),
-                     //   );
-                     // }):Container(),
-                       ],
-                     ),
-
-                   ),
-                 ),
-               ),
+               children: [
                  SizedBox(height: 20,),
                  Expanded(
                    child: Container(
@@ -209,9 +144,7 @@ class _HttpPageState extends State<HttpPage> {
                      future: _futureData,
                      builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container(
-                          height: 30,
-                          width:30,
+                        return Center(
                           child: CircularProgressIndicator(
                             color:Colors.white,
                           ),
@@ -221,7 +154,7 @@ class _HttpPageState extends State<HttpPage> {
                     } else {
                       return
                    ListView.builder(
-                       itemCount:display?filteredList.length:L.symbol.length,
+                       itemCount:L.symbol.length,
                               itemBuilder: (context,index){
                             return ListTile(
                               subtitle: Container(
@@ -266,6 +199,7 @@ class _HttpPageState extends State<HttpPage> {
                     }
                    ),),
                  ),
+
                ],
              ),
            ),
