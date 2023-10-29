@@ -100,7 +100,10 @@ class _SearchPageState extends State<SearchPage> {
                      child:SingleChildScrollView(
                        child: Column(
                          children: [
-                           Text(filteredList[index],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                           TextButton(onPressed: (){
+                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DetailStock(sym: filteredList[index])));
+                           },
+                               child: Text(filteredList[index],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
                          ],
                         ),
                       ),
